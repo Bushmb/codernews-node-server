@@ -1,0 +1,26 @@
+{
+  "name": "_example",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server/bin/www"
+  },
+  "dependencies": {
+    "async": "^2.1.5",
+    "debug": "~2.2.0",
+    "dotenv": "^4.0.0",
+    "express": "~4.13.1",
+    "forever": "^0.15.3",
+    "mongoose": "^4.1.8",
+    "morgan": "~1.6.1",
+    "node-schedule": "^1.2.1",
+    "now-logs": "0.0.7",
+    "path": "^0.12.7",
+    "request": "^2.81.0",
+    "request-promise": "^4.1.1",
+    "unfluff": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
