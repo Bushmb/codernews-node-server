@@ -16,12 +16,12 @@ const scheduleData = {
 		const job = schedule.scheduleJob(rule, function() {
 
 			// wiping database to only show latest articles
-			scrapedData.remove({}, function(err,removed) {
-			console.log("Clearing DB");
-			});
+			// scrapedData.remove({}, function(err,removed) {
+			// console.log("Clearing DB");
+			// });
 			
-			// run request to fetch new data
-			fetchHackerNewsAPI();
+			// // run request to fetch new data
+			// fetchHackerNewsAPI();
 			
 		});
 	},

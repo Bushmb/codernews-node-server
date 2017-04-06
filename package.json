@@ -1,16 +1,20 @@
 {
   "name": "_example",
   "version": "0.0.0",
+  "engines": {
+      "node": "7.6.0"
+  },
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www"
   },
   "dependencies": {
-    "async": "^2.1.5",
+    // "async": "^2.1.5",
     "debug": "~2.2.0",
     "dotenv": "^4.0.0",
     "express": "~4.13.1",
     "forever": "^0.15.3",
+    "metascraper": "^1.0.6",
     "mongoose": "^4.1.8",
     "morgan": "~1.6.1",
     "node-schedule": "^1.2.1",
