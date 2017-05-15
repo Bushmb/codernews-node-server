@@ -1,13 +1,17 @@
 const schedule = require('node-schedule');
-// const mongoose = require('mongoose');
 const fetchHackerNewsAPI = require('./fetchHackerNewsAPI');
 const scrapedData = require('../models/scrapedData');
 
 const scheduleData = {
 	scheduleJob: function() {
 
+		// wiping database to only show latest articles
+		// scrapedData.remove({}, function(err,removed) {
+		// console.log("Clearing DB");
+		// });
+
 		// run on initial load
-		fetchHackerNewsAPI();
+		// fetchHackerNewsAPI();
 
 		// this rule is standard cron syntax for 
 		// once every 15 mintues.

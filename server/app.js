@@ -29,7 +29,7 @@ app.use(logger('dev'));
 
 
 (function() {
-  // scheduleData.init();
+  scheduleData.init();
 })();
 
 module.exports = app;

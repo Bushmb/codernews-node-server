@@ -7,6 +7,7 @@ var scrapedData = new Schema({
    	orig_url: String,
   	topic: String,
   	date: String,
+    dispDate: String,
   	title: String,
   	desc: String,
   	img: String,
