@@ -40,7 +40,9 @@ function fetchHackerNewsAPI() {
 						results.push(story);
 					}
 				}
+
 			});
+
 			finalResults.push(results)
 
 			if(finalResults.length === topics.length) {
@@ -48,41 +50,35 @@ function fetchHackerNewsAPI() {
 					newArr = newArr.concat(arr)
 					return newArr
 				}, [])
-				// console.log(concated);
 				fetchHTML5(concated);	
 			}
-			// console.log("RESULTS", results);
-			
+
 		});
-		
-	});
-	
-	
+	});	
 };
 
 function fetchHTML5(results) {
 
 	function makeRequest(story) {
+		let d = new Date();
+		let n = d.toString()
+		console.log(n);
 
-		console.log(Date.now())
-			// const story = results.pop()
 			request(story.pageUrl, function(err, res, body) {
 				if(err || res || body) {
-					// console.log(body)
-						// console.log(Date.now())
 						if(results.length) {
-							makeRequest(results.pop())	
+							makeRequest(results.pop());	
 						} else {
-							console.log("all done")
-							return
+							console.log("all done");
+							return;
 						}
 				}
 				if(body && !err && res.statusCode == 200) {
-					fetchHTML2(story, body, res)
+					fetchHTML2(story, body, res);
 				} 
 			})	
 	}
-	makeRequest(results.pop())
+	makeRequest(results.pop());
 }
 
 
@@ -115,7 +111,7 @@ function fetchHTML2(indivStory, body, res) {
 	// Pull out content from each link
 	let unfluffed;
 	try {
-		unfluffed = unfluff(body)
+		unfluffed = unfluff(body);
 	}
 	catch(e) {
 		// console.log(e)
@@ -151,8 +147,6 @@ function fetchHTML2(indivStory, body, res) {
 		if (img == "http://www.syntaxsuccess.com/img/bio.jpg") {
 			img = "noimage";
 		}
-		// console.log("IMAGE TAG!", img)
-		// "https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180";
 	
 		// Create unique story id from stripped and shortened url
 		const story_id = indivStory.pageUrl.replace(/[^a-z0-9]+/ig, "").substring(5, 40);
@@ -187,13 +181,11 @@ function fetchHTML2(indivStory, body, res) {
    	    if(isBlocked === "No") {
 
 	   	    if(Object.keys(story).every(key => story[key])) {
-   	    	    // console.log("STORY_ID!!!!!", story.story_id);
+   	    	   
 	   	    	scrapedData.count({story_id: story.story_id}, function (err, count){ 
 	   	    	
 	   	    	    if(!count) {
 	    	    		scrapedData.create(story, function (err, savedStory) {
-		    	    		// console.log("STORY_ID!!!!!", story.story_id);
-		    	    		// console.log("Count", count, story.story_id)
 		    	    		
 		    	    		if (err) {
 		    	    			// console.log(err);
@@ -210,143 +202,6 @@ function fetchHTML2(indivStory, body, res) {
 	}
 		   	
 };
-
-
-
-
-
-
-// function fetchHTML2(results) {
-// 	// resultsLength = results.length;
-// 	// let count = 0;
-// 	// results.forEach(async function(result){
-
-// 	// 	// Call to each URL pulled from HackerNews
-// 	// 	await request(result.pageUrl, function (error, res, body) {
-// 	// 		console.log("unfluff req " + result.pageUrl + "is of " + resultsLength);
-// 			let isBlocked = "No";
-			
-// 			// If the page was found...
-// 			else if (!error && res.statusCode == 200) {
-
-// 			    // Grab the headers
-// 			    var headers = res.headers;
-
-// 			    // Grab the x-frame-options header if it exists
-// 			    var xFrameOptions = headers['x-frame-options'] || '';
-
-// 			    // Normalize the header to lowercase
-// 			    xFrameOptions = xFrameOptions.toLowerCase();
-
-// 			    // Check if it's set to a blocking option
-// 			    if (
-// 			      xFrameOptions === 'sameorigin' ||
-// 			      xFrameOptions === 'deny'
-// 			    ) {
-// 			      isBlocked = "Yes";
-// 			    }
-			
-// 				// Pull out content from each link
-// 				let unfluffed;
-// 				try {
-// 					unfluffed = unfluff(body)
-// 				}
-// 				catch(e) {
-// 					// console.log(e)
-// 				}
-				
-// 				if(unfluffed) {
-// 					// Grabbing the original URL for a poss linkback
-// 					const orig_url = result.pageUrl;
-
-// 					// What topic was being searched
-// 					const topic = result.topic;
-				
-// 					// Current Points on Hacker News
-// 					const points = result.points;
-				
-// 					// Grab the date the article was posted on HackerNews
-// 					const date = dateFormat(result.date);
-				
-// 					// Grab story title if it has one.
-// 					let title = unfluffed.title;
-// 					title = (title && title !== "400 Bad Request") ? title : false;
-// 					title = title ? title : result.hn_title;
-				
-// 					// Grab story description if there is one
-// 					const desc = unfluffed.description;
-				
-// 					// Grab image
-// 					let img = unfluffed.image ? unfluffed.image : "noimage"
-
-// 					if (img == "http://www.syntaxsuccess.com/img/bio.jpg") {
-// 						img = "noimage";
-// 					}
-// 					// console.log("IMAGE TAG!", img)
-// 					// "https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180";
-				
-// 					// Create unique story id from stripped and shortened url
-// 					const story_id = result.pageUrl.replace(/[^a-z0-9]+/ig, "").substring(5, 40);
-
-// 					// Clean up the url for front end design
-// 					const display_url = result.pageUrl.split('/')[2].replace(/www./i, '')
-			
-// 					// Get a word count of the story's description
-// 				   	const desc_words = desc ? desc.split(' ').length : false
-				   
-// 				   	// Make sure the description is long enough for front end design
-// 				   	const desc_check = desc_words > 7 ? desc_words : false
-				   
-// 				   	// Grab first 200 chars of text from article
-// 				   	const text = unfluffed.text
-// 				   			   ? unfluffed.text.substring(0, 200).replace(/\n\n/g, ' ') 
-// 				   			   : false
-
-// 				   	// Word Length of text from sraped page
-// 				   	const text_words = unfluffed.text ? unfluffed.text.split(' ').length: false;
-				   
-// 				   	// How long will it take a user to read this story?
-// 			   	    const mins = Math.ceil(unfluffed.text.split(' ').length / 250)
-
-// 			   	    // Make sure the story is long enough to be worth reading
-// 			   	    const mins_check = mins > 1 ? mins + " Min Read" : false
-			   	   
-// 			   	    const story = {
-// 			   	    	story_id, orig_url, topic, date, title, desc, img,
-// 			   	    	display_url, text, mins_check, points, text_words, isBlocked
-// 			   	    }
-// 			   	    if(isBlocked === "No") {
-
-// 				   	    if(Object.keys(story).every(key => story[key])) {
-// 			   	    	    // console.log("STORY_ID!!!!!", story.story_id);
-// 				   	    	scrapedData.count({story_id: story.story_id}, function (err, count){ 
-				   	    	
-// 				   	    	    if(!count) {
-// 				    	    		scrapedData.create(story, function (err, savedStory) {
-// 					    	    		// console.log("STORY_ID!!!!!", story.story_id);
-// 					    	    		// console.log("Count", count, story.story_id)
-					    	    		
-// 					    	    		if (err) {
-// 					    	    			// console.log(err);
-// 					    	    		}
-// 				    	    			console.log("+++NOT IN DB++++SAVING NOW++++");
-// 				    	    	    })
-
-// 				   	    	    }
-// 				   	    	    console.log("+++IN DATABASE+++");
-// 				   	    	}); 
-				   	    		
-// 				   	    }
-// 			   		}
-// 		   		}
-// 		   	}
-			
-// 		// });
-		
-		
-// 	// });
-// };
-
 
 ///////////////////////////////////////////////////////////////
 // Modify date format to show MM/DD/YYYY
