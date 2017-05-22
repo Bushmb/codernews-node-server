@@ -4,14 +4,18 @@ const scrapedData = require('../models/scrapedData');
 
 const scheduleData = {
 	scheduleJob: function() {
+		let count = 0;
+		// wiping database to only show latest articles //
 
-		// wiping database to only show latest articles
 		// scrapedData.remove({}, function(err,removed) {
 		// console.log("Clearing DB");
 		// });
 
-		// run on initial load
+		// Run on initial load //
+
 		// fetchHackerNewsAPI();
+		// console.log("Job # " + count);
+		// count++;
 
 		// this rule is standard cron syntax for 
 		// once every 15 mintues.
@@ -19,13 +23,17 @@ const scheduleData = {
 		
 		const job = schedule.scheduleJob(rule, function() {
 
-			// wiping database to only show latest articles
+			// wiping database to only show latest articles //
 			// scrapedData.remove({}, function(err,removed) {
 			// console.log("Clearing DB");
 			// });
 			
-			// // run request to fetch new data
+			// Run request to fetch new data //
+
 			fetchHackerNewsAPI();
+			
+			console.log("Job # " + count);
+			count++;
 			
 		});
 	},

@@ -1,6 +1,6 @@
 {
-  "name": "_example",
-  "version": "0.0.0",
+  "name": "Coder News - Request Server",
+  "version": "1.0.0",
   "engines": {
       "node": "7.6.0"
   },

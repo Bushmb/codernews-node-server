@@ -1,8 +1,10 @@
-// var async = require('async');
 var request = require('request');
 var unfluff = require('unfluff');
 
 const scrapedData = require('../models/scrapedData');
+
+// Date Stamp //
+
 
 
 ///////////////////////////////////////////////////////////////
@@ -11,7 +13,8 @@ const scrapedData = require('../models/scrapedData');
 
 function fetchHackerNewsAPI() {
 	
-	console.log("Request to Hacker News API started");
+	// let dateString = new Date();
+	console.log("Request to Hacker News API started @ " + new Date());
 
 	const topics = ['javascript', 'redux+react', 'perl', 'python', 'ruby', 'angular'];
 	const finalResults = [];
@@ -50,31 +53,32 @@ function fetchHackerNewsAPI() {
 					newArr = newArr.concat(arr)
 					return newArr
 				}, [])
-				fetchHTML5(concated);	
+				fetchHTML(concated);	
 			}
 
 		});
 	});	
 };
 
-function fetchHTML5(results) {
+function fetchHTML(results) {
 
+	const numResults = results.length;
 	function makeRequest(story) {
-		let d = new Date();
-		let n = d.toString()
-		console.log(n);
+
+		// let dateString = new Date();
+		console.log(`${new Date()} - ${numResults - results.length} of ${numResults}`);
 
 			request(story.pageUrl, function(err, res, body) {
 				if(err || res || body) {
 						if(results.length) {
 							makeRequest(results.pop());	
 						} else {
-							console.log("all done");
+							console.log("All Requests Finished @ " + new Date());
 							return;
 						}
 				}
 				if(body && !err && res.statusCode == 200) {
-					fetchHTML2(story, body, res);
+				 	refineStory(story, body, res);
 				} 
 			})	
 	}
@@ -87,7 +91,7 @@ function fetchHTML5(results) {
 ///////////////////////////////////////////////////////////////
 
 
-function fetchHTML2(indivStory, body, res) {
+function refineStory(indivStory, body, res) {
 
 	let isBlocked = "No";
 			
@@ -190,11 +194,11 @@ function fetchHTML2(indivStory, body, res) {
 		    	    		if (err) {
 		    	    			// console.log(err);
 		    	    		}
-	    	    			console.log("+++NOT IN DB++++SAVING NOW++++");
+	    	    			console.log("+++SAVING NEW STORY+++");
 	    	    	    })
 
 	   	    	    }
-	   	    	    console.log("+++IN DATABASE+++");
+	   	    	    // console.log("+++IN DATABASE+++");
 	   	    	}); 
 	   	    		
 	   	    }
