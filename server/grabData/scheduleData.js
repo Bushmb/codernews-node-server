@@ -13,7 +13,7 @@ const scheduleData = {
 
 		// Run on initial load //
 
-		// fetchHackerNewsAPI();
+		fetchHackerNewsAPI();
 		// console.log("Job # " + count);
 		// count++;
 
@@ -31,7 +31,7 @@ const scheduleData = {
 			// Run request to fetch new data //
 
 			fetchHackerNewsAPI();
-			
+
 			console.log("Job # " + count);
 			count++;
 			
