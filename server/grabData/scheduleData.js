@@ -13,7 +13,7 @@ const scheduleData = {
 
 		// Run on initial load //
 
-		fetchHackerNewsAPI();
+		// fetchHackerNewsAPI();
 		// console.log("Job # " + count);
 		// count++;
 
