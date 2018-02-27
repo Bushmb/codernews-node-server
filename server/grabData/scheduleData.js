@@ -7,15 +7,15 @@ const scheduleData = {
 		let count = 0;
 		// wiping database to only show latest articles //
 
-		// scrapedData.remove({}, function(err,removed) {
-		// console.log("Clearing DB");
-		// });
+		scrapedData.remove({}, function(err,removed) {
+		console.log("Clearing DB");
+		});
 
 		// Run on initial load //
 
-		// fetchHackerNewsAPI();
-		// console.log("Job # " + count);
-		// count++;
+		fetchHackerNewsAPI();
+		console.log("Job # " + count);
+		count++;
 
 		// this rule is standard cron syntax for 
 		// once every 15 mintues.

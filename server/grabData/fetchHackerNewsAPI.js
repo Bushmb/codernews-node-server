@@ -3,10 +3,6 @@ var unfluff = require('unfluff');
 
 const scrapedData = require('../models/scrapedData');
 
-// Date Stamp //
-
-
-
 ///////////////////////////////////////////////////////////////
 // Grab data from HackerNews API
 ///////////////////////////////////////////////////////////////
@@ -35,8 +31,10 @@ function fetchHackerNewsAPI() {
 				const points = item.points;
 
 				if(pageUrl !== null){
-					if(pageUrl.indexOf("https://github.com", 0) === -1 && pageUrl.indexOf("https://twitter.com", 0) === -1 
-						&& pageUrl.indexOf("https://docs.google.com", 0) === -1 && pageUrl.indexOf("https://www.smartly.io", 0) === -1 ) {
+					if(pageUrl.indexOf("https://github.com", 0) === -1 
+					&& pageUrl.indexOf("https://twitter.com", 0) === -1 
+						&& pageUrl.indexOf("https://docs.google.com", 0) === -1 
+						&& pageUrl.indexOf("https://www.smartly.io", 0) === -1 ) {
 						story = {
 							date, hn_title, points, pageUrl, topic
 						}
@@ -166,7 +164,7 @@ function refineStory(indivStory, body, res) {
 	   
 	   	// Grab first 200 chars of text from article
 	   	const text = unfluffed.text
-	   			   ? unfluffed.text.substring(0, 200).replace(/\n\n/g, ' ') 
+	   			   ? unfluffed.text.substring(0, 400).replace(/\n\n/g, ' ') 
 	   			   : false
 
 	   	// Word Length of text from sraped page
